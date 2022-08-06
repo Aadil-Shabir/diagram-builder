@@ -21,6 +21,7 @@ import moment from 'moment';
 
 export default function ToolsList() {
   const { filteredToolstrings } = useContext(ToolstringContext);
+  console.log(filteredToolstrings, "Filtered Too String");
   const toast = useToast();
   const [isFrequent, setIsFrequent] = useState(false);
 
