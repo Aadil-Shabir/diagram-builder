@@ -184,34 +184,34 @@ const Diagram = forwardRef((props, ref) => {
 
 
   return (
-    <form onSubmit={handleSubmit(handleSaveToolstring)} autoComplete='off'>
-      <Button size='xs' type='submit'>
+    <form onSubmit={handleSubmit(handleSaveToolstring)} autoComplete="off">
+      <Button size="xs" type="submit">
         Save
       </Button>
-      <Flex w='full' justify='space-between'>
+      <Flex w="full" justify="space-between">
         <IconButton
-          variant='outline'
-          colorScheme='blue'
-          size='xs'
-          aria-label='Add tool'
+          variant="outline"
+          colorScheme="blue"
+          size="xs"
+          aria-label="Add tool"
           icon={<SmallAddIcon />}
           onClick={() =>
             append({
               _id: nanoid(),
-              imageURL: '',
-              description: '',
-              connection: '',
-              weight: '',
-              fishneck: '',
-              maxOd: '',
-              length: '',
+              imageURL: "",
+              description: "",
+              connection: "",
+              weight: "",
+              fishneck: "",
+              maxOd: "",
+              length: "",
             })
           }
         />
         <IconButton
-          variant='outline'
-          size='xs'
-          aria-label='Reset search'
+          variant="outline"
+          size="xs"
+          aria-label="Reset search"
           icon={<SmallCloseIcon />}
           onClick={() => setShowDiagram(false)}
         />
@@ -219,284 +219,301 @@ const Diagram = forwardRef((props, ref) => {
 
       <Flex
         ref={drop}
-        style={{ opacity: isActive ? 0.6 : 1, background: canDrop ? '#ffffff33' : undefined }}
-        w='full' mt={3} flexDir='column' borderWidth='1px'>
-        <Flex w='fill' h='32px' justify='center' borderBottomWidth='1px'>
+        style={{
+          opacity: isActive ? 0.6 : 1,
+          background: canDrop ? "#ffffff33" : undefined,
+        }}
+        w="full"
+        mt={3}
+        flexDir="column"
+        borderWidth="1px"
+      >
+        <Flex w="fill" h="32px" justify="center" borderBottomWidth="1px">
           <Input
-            w='300px'
-            size='sm'
-            textAlign='center'
-            variant='unstyled'
-            placeholder='Enter name'
-            {...register('name', {
+            w="300px"
+            size="sm"
+            textAlign="center"
+            variant="unstyled"
+            placeholder="Enter name"
+            {...register("name", {
               required: true,
               onChange: (e) => setName(e.target.value),
             })}
           />
         </Flex>
 
-        <Flex w='full' h='24px' borderBottomWidth='1px'>
-          <Center borderRightWidth='1px' w='36px'>
-            <Text fontSize='xs'>No.</Text>
+        <Flex w="full" h="24px" borderBottomWidth="1px">
+          <Center borderRightWidth="1px" w="36px">
+            <Text fontSize="xs">No.</Text>
           </Center>
 
           <Grid
             templateColumns={`repeat(${columns?.length}, 1fr)`}
             gap={0}
-            w='full'
+            w="full"
           >
             {columns?.map((item, index) => (
               <GridItem
-                w='100%'
-                h='full'
+                w="100%"
+                h="full"
                 key={index}
-                justify='center'
-                align='center'
-                borderRightWidth={index === columns?.length - 1 ? null : '1px'}
+                justify="center"
+                align="center"
+                borderRightWidth={index === columns?.length - 1 ? null : "1px"}
               >
-                <Box mt='2px'>
-                  <Text fontSize='xs'>{item}</Text>
+                <Box mt="2px">
+                  <Text fontSize="xs">{item}</Text>
                 </Box>
               </GridItem>
             ))}
           </Grid>
         </Flex>
-        {!fields.length && <div style={{ padding: '4rem' }}>
-          Drag a item from the left panel or add a empty row.
-        </div>}
-        {!!fields.length && <div className='overflow-y-auto scrollbar-hide'>
-          {fields.map((item, index) => (
-            <Flex
-              w='full'
-              h='80px'
-              key={index}
-              pos='relative'
-              onMouseEnter={() => setShowIcons(index)}
-              onMouseLeave={() => setShowIcons(null)}
-            >
-              <Center
-                w='36px'
-                borderRightWidth={grid === 'vertical' ? '1px' : null}
+        {!fields.length && (
+          <div style={{ padding: "4rem" }}>
+            Drag a item from the left panel or add a empty row.
+          </div>
+        )}
+        {!!fields.length && (
+          <div className="overflow-y-auto scrollbar-hide">
+            {fields.map((item, index) => (
+              <Flex
+                w="full"
+                h="80px"
+                key={index}
+                pos="relative"
+                onMouseEnter={() => setShowIcons(index)}
+                onMouseLeave={() => setShowIcons(null)}
               >
-                <Text fontSize='xs'>{index + 1}</Text>
-              </Center>
+                <Center
+                  w="36px"
+                  borderRightWidth={grid === "vertical" ? "1px" : null}
+                >
+                  <Text fontSize="xs">{index + 1}</Text>
+                </Center>
 
-              <Grid
-                templateColumns={`repeat(${columns?.length}, 1fr)`}
-                gap={0}
-                w='full'
-              >
-                <GridItem
-                  w='100%'
-                  h='80px'
-                  justify='center'
-                  align='center'
-                  borderRightWidth={grid === 'vertical' ? '1px' : null}
+                <Grid
+                  templateColumns={`repeat(${columns?.length}, 1fr)`}
+                  gap={0}
+                  w="full"
                 >
-                  <Center w='100%' h='100%'>
-                    <Image boxSize='81px' src={images[0]} />
-                    {/* <Input
-                      fontSize='xs'
-                      p={1}
-                      variant='unstyled'
-                      textAlign='center'
-                      placeholder='Drop here'
-                      {...register(`tools[${index}].imageURL`)}
-                    /> */}
-                  </Center>
-                </GridItem>
-                <GridItem
-                  w='100%'
-                  h='80px'
-                  justify='center'
-                  align='center'
-                  borderRightWidth={grid === 'vertical' ? '1px' : null}
-                  _hover={{
-                    borderWidth: '1px',
-                    borderColor: 'blue.300',
-                  }}
-                >
-                  <Center w='100%' h='100%'>
-                    <Input
-                      fontSize='xs'
-                      p={1}
-                      variant='unstyled'
-                      textAlign='center'
-                      {...register(`tools[${index}].description`)}
-                    />
-                  </Center>
-                </GridItem>
-                <GridItem
-                  w='100%'
-                  h='80px'
-                  justify='center'
-                  align='center'
-                  borderRightWidth={grid === 'vertical' ? '1px' : null}
-                  _hover={{
-                    borderWidth: '1px',
-                    borderColor: 'blue.300',
-                    // borderRadius: '6px',
-                  }}
-                >
-                  <Center w='100%' h='100%'>
-                    <Input
-                      fontSize='xs'
-                      p={1}
-                      variant='unstyled'
-                      textAlign='center'
-                      {...register(`tools[${index}].connection`)}
-                    />
-                  </Center>
-                </GridItem>
-                <GridItem
-                  w='100%'
-                  h='80px'
-                  justify='center'
-                  align='center'
-                  borderRightWidth={grid === 'vertical' ? '1px' : null}
-                  _hover={{
-                    borderWidth: '1px',
-                    borderColor: 'blue.300',
-                    // borderRadius: '6px',
-                  }}
-                >
-                  <Center w='100%' h='100%'>
-                    <Input
-                      fontSize='xs'
-                      p={1}
-                      variant='unstyled'
-                      textAlign='center'
-                      {...register(`tools[${index}].fishneck`)}
-                    />
-                  </Center>
-                </GridItem>
-                <GridItem
-                  w='100%'
-                  h='80px'
-                  justify='center'
-                  align='center'
-                  borderRightWidth={grid === 'vertical' ? '1px' : null}
-                  _hover={{
-                    borderWidth: '1px',
-                    borderColor: 'blue.300',
-                    // borderRadius: '6px',
-                  }}
-                >
-                  <Center w='100%' h='100%'>
-                    <Input
-                      fontSize='xs'
-                      p={1}
-                      variant='unstyled'
-                      textAlign='center'
-                      {...register(`tools[${index}].weight`, {
-                        valueAsNumber: true,
-                        required: true,
-                      })}
-                    />
-                  </Center>
-                </GridItem>
-                <GridItem
-                  w='100%'
-                  h='80px'
-                  justify='center'
-                  align='center'
-                  borderRightWidth={grid === 'vertical' ? '1px' : null}
-                  _hover={{
-                    borderWidth: '1px',
-                    borderColor: 'blue.300',
-                    // borderRadius: '6px',
-                  }}
-                >
-                  <Center w='100%' h='100%'>
-                    <Input
-                      fontSize='xs'
-                      p={1}
-                      variant='unstyled'
-                      textAlign='center'
-                      {...register(`tools[${index}].maxOd`, {
-                        valueAsNumber: true,
-                        required: true,
-                      })}
-                    />
-                  </Center>
-                </GridItem>
-                <GridItem
-                  w='100%'
-                  h='80px'
-                  justify='center'
-                  align='center'
-                  _hover={{
-                    borderWidth: '1px',
-                    borderColor: 'blue.300',
-                    // borderRadius: '6px',
-                  }}
-                >
-                  <Center w='100%' h='100%'>
-                    <Input
-                      fontSize='xs'
-                      p={1}
-                      variant='unstyled'
-                      textAlign='center'
-                      {...register(`tools[${index}].length`, {
-                        valueAsNumber: true,
-                        required: true,
-                      })}
-                    />
-                  </Center>
-                </GridItem>
-              </Grid>
-
-              {showIcons === index && (
-                <Flex pos='absolute' top='2px' left='4px'>
-                  <IconButton
-                    size='xs'
-                    aria-label='Duplicate item'
-                    icon={<CopyIcon />}
-                    onClick={() => {
-                      const myValues = getValues(`tools.${index}`)
-                      // clean 
-                      // Todo: Handle NaN case.
-                      const clean = Object.keys(myValues).reduce((acc, k) => ({ ...acc, [k]: !!myValues[k] ? myValues[k] : undefined }), {})
-                      insert(index + 1, {
-                        ...clean,
-                        _id: nanoid(),
-                      })
+                  <GridItem
+                    w="100%"
+                    h="80px"
+                    justify="center"
+                    align="center"
+                    borderRightWidth={grid === "vertical" ? "1px" : null}
+                  >
+                    <Center w="100%" h="100%">
+                      <Image boxSize='81px' src={getValues(`tools.${index}.imageURL`)} />
+                      {/* <Image
+                        fontSize="xs"
+                        p={1}
+                        variant="unstyled"
+                        textAlign="center"
+                        placeholder="Drop here"
+                        {...register(`tools[${index}].imageURL`)}
+                      /> */}
+                    </Center>
+                  </GridItem>
+                  <GridItem
+                    w="100%"
+                    h="80px"
+                    justify="center"
+                    align="center"
+                    borderRightWidth={grid === "vertical" ? "1px" : null}
+                    _hover={{
+                      borderWidth: "1px",
+                      borderColor: "blue.300",
                     }}
-                  />
-                </Flex>
-              )}
-              {showIcons === index && (
-                <Flex pos='absolute' top='54px' left='4px'>
-                  <IconButton
-                    size='xs'
-                    aria-label='Remove item'
-                    icon={<DeleteIcon />}
-                    onClick={() => remove(index)}
-                  />
-                </Flex>
-              )}
-            </Flex>
-          ))}
-        </div>}
-        <Flex w='full' h='24px' borderTopWidth='1px' justify='space-between'>
+                  >
+                    <Center w="100%" h="100%">
+                      <Input
+                        fontSize="xs"
+                        p={1}
+                        variant="unstyled"
+                        textAlign="center"
+                        {...register(`tools[${index}].description`)}
+                      />
+                    </Center>
+                  </GridItem>
+                  <GridItem
+                    w="100%"
+                    h="80px"
+                    justify="center"
+                    align="center"
+                    borderRightWidth={grid === "vertical" ? "1px" : null}
+                    _hover={{
+                      borderWidth: "1px",
+                      borderColor: "blue.300",
+                      // borderRadius: '6px',
+                    }}
+                  >
+                    <Center w="100%" h="100%">
+                      <Input
+                        fontSize="xs"
+                        p={1}
+                        variant="unstyled"
+                        textAlign="center"
+                        {...register(`tools[${index}].connection`)}
+                      />
+                    </Center>
+                  </GridItem>
+                  <GridItem
+                    w="100%"
+                    h="80px"
+                    justify="center"
+                    align="center"
+                    borderRightWidth={grid === "vertical" ? "1px" : null}
+                    _hover={{
+                      borderWidth: "1px",
+                      borderColor: "blue.300",
+                      // borderRadius: '6px',
+                    }}
+                  >
+                    <Center w="100%" h="100%">
+                      <Input
+                        fontSize="xs"
+                        p={1}
+                        variant="unstyled"
+                        textAlign="center"
+                        {...register(`tools[${index}].fishneck`)}
+                      />
+                    </Center>
+                  </GridItem>
+                  <GridItem
+                    w="100%"
+                    h="80px"
+                    justify="center"
+                    align="center"
+                    borderRightWidth={grid === "vertical" ? "1px" : null}
+                    _hover={{
+                      borderWidth: "1px",
+                      borderColor: "blue.300",
+                      // borderRadius: '6px',
+                    }}
+                  >
+                    <Center w="100%" h="100%">
+                      <Input
+                        fontSize="xs"
+                        p={1}
+                        variant="unstyled"
+                        textAlign="center"
+                        {...register(`tools[${index}].weight`, {
+                          valueAsNumber: true,
+                          required: true,
+                        })}
+                      />
+                    </Center>
+                  </GridItem>
+                  <GridItem
+                    w="100%"
+                    h="80px"
+                    justify="center"
+                    align="center"
+                    borderRightWidth={grid === "vertical" ? "1px" : null}
+                    _hover={{
+                      borderWidth: "1px",
+                      borderColor: "blue.300",
+                      // borderRadius: '6px',
+                    }}
+                  >
+                    <Center w="100%" h="100%">
+                      <Input
+                        fontSize="xs"
+                        p={1}
+                        variant="unstyled"
+                        textAlign="center"
+                        {...register(`tools[${index}].maxOd`, {
+                          valueAsNumber: true,
+                          required: true,
+                        })}
+                      />
+                    </Center>
+                  </GridItem>
+                  <GridItem
+                    w="100%"
+                    h="80px"
+                    justify="center"
+                    align="center"
+                    _hover={{
+                      borderWidth: "1px",
+                      borderColor: "blue.300",
+                      // borderRadius: '6px',
+                    }}
+                  >
+                    <Center w="100%" h="100%">
+                      <Input
+                        fontSize="xs"
+                        p={1}
+                        variant="unstyled"
+                        textAlign="center"
+                        {...register(`tools[${index}].length`, {
+                          valueAsNumber: true,
+                          required: true,
+                        })}
+                      />
+                    </Center>
+                  </GridItem>
+                </Grid>
+
+                {showIcons === index && (
+                  <Flex pos="absolute" top="2px" left="4px">
+                    <IconButton
+                      size="xs"
+                      aria-label="Duplicate item"
+                      icon={<CopyIcon />}
+                      onClick={() => {
+                        const myValues = getValues(`tools.${index}`);
+                        // clean
+                        // Todo: Handle NaN case.
+                        const clean = Object.keys(myValues).reduce(
+                          (acc, k) => ({
+                            ...acc,
+                            [k]: !!myValues[k] ? myValues[k] : undefined,
+                          }),
+                          {}
+                        );
+                        insert(index + 1, {
+                          ...clean,
+                          _id: nanoid(),
+                        });
+                      }}
+                    />
+                  </Flex>
+                )}
+                {showIcons === index && (
+                  <Flex pos="absolute" top="54px" left="4px">
+                    <IconButton
+                      size="xs"
+                      aria-label="Remove item"
+                      icon={<DeleteIcon />}
+                      onClick={() => remove(index)}
+                    />
+                  </Flex>
+                )}
+              </Flex>
+            ))}
+          </div>
+        )}
+        <Flex w="full" h="24px" borderTopWidth="1px" justify="space-between">
           <Center ml={2}>
-            <Text fontSize='xs' mr={2}>
+            <Text fontSize="xs" mr={2}>
               Total Items:
             </Text>
-            <Text fontSize='xs' mr={2}>
+            <Text fontSize="xs" mr={2}>
               {fields?.length}
             </Text>
           </Center>
 
           <Flex>
-            <Center w='110px'>
-              <Text fontSize='xs'>{`Weight: ${totalWeight} ${weightUnits}`}</Text>
+            <Center w="110px">
+              <Text fontSize="xs">{`Weight: ${totalWeight} ${weightUnits}`}</Text>
             </Center>
-            <Center w='110px'>
-              <Text fontSize='xs'>{`Max OD: ${maxOd} ${diameterUnits}`}</Text>
+            <Center w="110px">
+              <Text fontSize="xs">{`Max OD: ${maxOd} ${diameterUnits}`}</Text>
             </Center>
-            <Center w='110px'>
-              <Text fontSize='xs'>{`Length: ${totalLength} ${lengthUnits}`}</Text>
+            <Center w="110px">
+              <Text fontSize="xs">{`Length: ${totalLength} ${lengthUnits}`}</Text>
             </Center>
           </Flex>
         </Flex>
